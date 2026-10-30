@@ -1,12 +1,19 @@
 # Shadowrocket 黑名单规则（个人自用）
 
-纯域名黑名单版 v6：只有需要走代理的域名/规则集走 PROXY，其余全部直连。
+纯域名黑名单版 v6.1：只有需要走代理的域名/规则集走 PROXY，其余全部直连。
 
 - 规则段：27 条 PROXY 规则 + `FINAL,DIRECT`
 - 无策略组：走哪个节点只由 Shadowrocket 首页选中的节点决定
 - 无单独 DIRECT 规则：中国域名、微信、B站等靠 FINAL 兜底直连
 - 核心名单：blackmatrix7 Global（35,312 条）+ Google / YouTube / Telegram / GitHub / Facebook / Gemini 等规则集，另含 Muse / Meta 域名（muse.ai、meta.ai 等）
 - 规则集为远程 RULE-SET，Shadowrocket 内可自动更新
+
+## v6.1 变更（2026-10-31，对照 LOWERTOP 无策略组版）
+
+1. `ipv6` 改为 true（prefer-ipv6 仍为 false），避免影响机场节点解析/连接
+2. `dns-direct-system` 改为 false：直连域名也走配置的国内 DoH，不再用运营商系统 DNS
+3. `dns-direct-fallback-proxy` 改为 true：直连解析失败时走代理兜底
+4. 新增 `stun-response-ip = 1.1.1.1` / `stun-response-ipv6 = ::1`，防 WebRTC 泄漏真实 IP
 
 ## v6 变更（2026-10-31）
 
@@ -28,6 +35,6 @@ https://raw.githubusercontent.com/anong8090/shadowrocket-blacklist-rules/main/me
 3. 点已下载的配置，设为使用中
 4. 首页添加自己的节点/订阅，选一个可用节点连接，全局路由选「配置」
 
-已导入过的，在远程文件上更新一次即可升级到 v6。
+已导入过的，在远程文件上更新一次即可升级到 v6.1。
 
 注：本配置不含任何节点、账号或密钥。
