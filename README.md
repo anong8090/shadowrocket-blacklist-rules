@@ -1,12 +1,16 @@
 # Shadowrocket 黑名单规则（个人自用）
 
-纯域名黑名单版 v6.3：只有需要走代理的域名/规则集走 PROXY，其余全部直连。
+纯域名黑名单版 v6.4：只有需要走代理的域名/规则集走 PROXY，其余全部直连。
 
-- 规则段：34 条 PROXY 规则 + `FINAL,DIRECT`
+- 规则段：38 条 PROXY 规则 + Global DOMAIN-SET（35,132 条域名） + `FINAL,DIRECT`
 - 无策略组：走哪个节点只由 Shadowrocket 首页选中的节点决定
 - 无单独 DIRECT 规则：中国域名、微信、B站等靠 FINAL 兜底直连
 - 核心名单：blackmatrix7 Global（35,312 条）+ Google / YouTube / Telegram / GitHub / Facebook / Gemini 等规则集，另含 Muse / Meta 域名（muse.ai、meta.ai 等）
 - 规则集为远程 RULE-SET，Shadowrocket 内可自动更新
+
+## v6.4 变更（2026-10-31，修 v6 的误删）
+
+v6 时误把 `Global_Domain.list` 当作与 Global RULE-SET 重复而删除。实查 blackmatrix7 文件结构：Global 的 34,993 条 DOMAIN-SUFFIX 全部在 `Global_Domain.list`（DOMAIN-SET 格式），`Global.list` 本体只有 36 条关键词、119 条 IP-CIDR、46 条 USER-AGENT。删除后大名单主体实际缺失，专项表之外的站点（包括 github.com 的部分覆盖）只能落 FINAL 直连。v6.4 恢复该 DOMAIN-SET，并写死 GitHub 家族四域名（github.com、githubusercontent.com、githubassets.com、github.io），不再单靠远程表加载。
 
 ## v6.3 变更（2026-10-31）
 
@@ -45,6 +49,6 @@ https://raw.githubusercontent.com/anong8090/shadowrocket-blacklist-rules/main/me
 3. 点已下载的配置，设为使用中
 4. 首页添加自己的节点/订阅，选一个可用节点连接，全局路由选「配置」
 
-已导入过的，在远程文件上更新一次即可升级到 v6.3。
+已导入过的，在远程文件上更新一次即可升级到 v6.4。
 
 注：本配置不含任何节点、账号或密钥。
