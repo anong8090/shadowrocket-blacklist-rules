@@ -1,12 +1,16 @@
 # Shadowrocket 黑名单规则（个人自用）
 
-纯域名黑名单版 v6.4：只有需要走代理的域名/规则集走 PROXY，其余全部直连。
+纯域名黑名单版 v6.5：只有需要走代理的域名/规则集走 PROXY，其余全部直连。
 
-- 规则段：38 条 PROXY 规则 + Global DOMAIN-SET（35,132 条域名） + `FINAL,DIRECT`
+- 规则段：38 条 PROXY 规则 + Global DOMAIN-SET（35,132 条域名）+ 41 条富途/Moomoo DIRECT 豁免 + `FINAL,DIRECT`
 - 无策略组：走哪个节点只由 Shadowrocket 首页选中的节点决定
 - 无单独 DIRECT 规则：中国域名、微信、B站等靠 FINAL 兜底直连
 - 核心名单：blackmatrix7 Global（35,312 条）+ Google / YouTube / Telegram / GitHub / Facebook / Gemini 等规则集，另含 Muse / Meta 域名（muse.ai、meta.ai 等）
 - 规则集为远程 RULE-SET，Shadowrocket 内可自动更新
+
+## v6.5 变更（2026-11-02）
+
+富途 / Moomoo 改直连：HK_Broker 券商表与 Global 大名单都收录了富途全系域名（futunn.com、futu5.com 等），在规则段最前面加 41 条 DOMAIN-SUFFIX DIRECT 豁免（覆盖 HK_Broker 与 Global 两处来源的富途/Moomoo 域名全集）。同一张 HK_Broker 表里的盈透（Interactive Brokers）、长桥、老虎、嘉信不在豁免内，仍走 PROXY。注：HK_Broker 表里还有一批富途后端 IP-CIDR，纯按 IP 发起的连接仍可能命中代理，富途 App 的行情/交易接口均为域名连接，不受影响。
 
 ## v6.4 变更（2026-10-31，修 v6 的误删）
 
@@ -49,6 +53,6 @@ https://raw.githubusercontent.com/anong8090/shadowrocket-blacklist-rules/main/me
 3. 点已下载的配置，设为使用中
 4. 首页添加自己的节点/订阅，选一个可用节点连接，全局路由选「配置」
 
-已导入过的，在远程文件上更新一次即可升级到 v6.4。
+已导入过的，在远程文件上更新一次即可升级到 v6.5。
 
 注：本配置不含任何节点、账号或密钥。
