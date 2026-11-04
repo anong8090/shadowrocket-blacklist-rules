@@ -1,12 +1,16 @@
 # Shadowrocket 黑名单规则（个人自用）
 
-纯域名黑名单版 v6.5：只有需要走代理的域名/规则集走 PROXY，其余全部直连。
+纯域名黑名单版 v6.6：只有需要走代理的域名/规则集走 PROXY，其余全部直连。
 
-- 规则段：38 条 PROXY 规则 + Global DOMAIN-SET（35,132 条域名）+ 41 条富途/Moomoo DIRECT 豁免 + `FINAL,DIRECT`
+- 规则段：37 条 PROXY 规则 + Global DOMAIN-SET（35,132 条域名）+ 45 条 DIRECT 豁免（富途/Moomoo 41 条 + 苹果 4 条） + `FINAL,DIRECT`
 - 无策略组：走哪个节点只由 Shadowrocket 首页选中的节点决定
 - 无单独 DIRECT 规则：中国域名、微信、B站等靠 FINAL 兜底直连
 - 核心名单：blackmatrix7 Global（35,312 条）+ Google / YouTube / Telegram / GitHub / Facebook / Gemini 等规则集，另含 Muse / Meta 域名（muse.ai、meta.ai 等）
 - 规则集为远程 RULE-SET，Shadowrocket 内可自动更新
+
+## v6.6 变更（2026-11-05）
+
+苹果改直连：实查苹果被代理有三处来源——Global 大名单收了 `apple.com` 与 `icloud.com`（含 icloud-content.com、apple-cloudkit.com）、LingJing 的 ApplePush 推送表、以及一条把 TCP 5223 端口（苹果推送专用端口）一律送代理的 AND 规则。v6.6 在规则段最前加 4 条苹果 DIRECT 豁免，并删掉 ApplePush 规则集与 5223 强制代理规则。`apple.news`（Apple News）不在豁免内，仍随 Global 走代理。若后续国外 App 推送明显变不及时，多半是推送改走直连所致，可单独恢复推送规则。
 
 ## v6.5 变更（2026-11-02）
 
@@ -53,6 +57,6 @@ https://raw.githubusercontent.com/anong8090/shadowrocket-blacklist-rules/main/me
 3. 点已下载的配置，设为使用中
 4. 首页添加自己的节点/订阅，选一个可用节点连接，全局路由选「配置」
 
-已导入过的，在远程文件上更新一次即可升级到 v6.5。
+已导入过的，在远程文件上更新一次即可升级到 v6.6。
 
 注：本配置不含任何节点、账号或密钥。
