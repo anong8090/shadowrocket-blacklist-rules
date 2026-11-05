@@ -1,12 +1,24 @@
 # Shadowrocket 黑名单规则（个人自用）
 
-纯域名黑名单版 v6.6：只有需要走代理的域名/规则集走 PROXY，其余全部直连。
+纯域名黑名单版 v6.7：只有需要走代理的域名/规则集走 PROXY，其余全部直连。
 
-- 规则段：37 条 PROXY 规则 + Global DOMAIN-SET（35,132 条域名）+ 45 条 DIRECT 豁免（富途/Moomoo 41 条 + 苹果 4 条） + `FINAL,DIRECT`
+- 规则段：36 条 PROXY 规则 + Global DOMAIN-SET（35,132 条域名）+ 46 条 DIRECT 豁免（富途/Moomoo 41 条 + 苹果 5 条） + `FINAL,DIRECT`
 - 无策略组：走哪个节点只由 Shadowrocket 首页选中的节点决定
 - 无单独 DIRECT 规则：中国域名、微信、B站等靠 FINAL 兜底直连
 - 核心名单：blackmatrix7 Global（35,312 条）+ Google / YouTube / Telegram / GitHub / Facebook / Gemini 等规则集，另含 Muse / Meta 域名（muse.ai、meta.ai 等）
 - 规则集为远程 RULE-SET，Shadowrocket 内可自动更新
+
+## v6.7 变更（2026-11-05，全表审计清理）
+
+逐条审计了全部规则集与写死规则，删掉 5 处不合理/遗留项：
+
+1. **删 Microsoft 全家桶表**（blackmatrix7 Microsoft.list，671 条）：这是微软全产品线清单而非被墙清单，连 `azure.cn`、`aadrm.cn` 等微软中国云（世纪互联）域名都被送去代理。删除后 `microsoft.com`、`bing.com`、`onedrive.com`、`linkedin.com`、`skype.com`、`xbox` 等仍在 Global 大名单内继续走代理，不受影响；微软中国云与冷门 Azure/开发域名改走直连。
+2. **删 HK_Broker 券商整表**：富途已在 v6.5 豁免，该表只剩一堆富途后端 IP 段与未使用的长桥/老虎/嘉信/雪球；盈透（interactivebrokers.com、.com.hk、ibkr.com）经实查在 Global 大名单内已有，另在配置里写死 `interactivebrokers.com`、`ibkr.com` 双保险。长桥/老虎/嘉信/雪球转直连（大陆均可直达）。
+3. **删 `IP-CIDR,208.54.0.0/16,PROXY`**：美国 T-Mobile 的 IP 段，原基底遗留，与本配置用途无关。
+4. **删 [URL Rewrite] 与 MITM 主机名**：google.cn/g.cn 跳转重写在 MITM 关闭时本就是死配置，一并删除；[MITM] 只留 `enable = false`。
+5. **删 [Host] 里 5 条 dns-sd 残留**：带具体网段（10.211.55.x 等）的是原作者局域网的记录，与本机无关；通用项保留。
+
+另外苹果 DIRECT 豁免补上 `icloud.com.cn`（Mail 规则集原本把 mail.icloud.com.cn 送去代理）。
 
 ## v6.6 变更（2026-11-05）
 
@@ -57,6 +69,6 @@ https://raw.githubusercontent.com/anong8090/shadowrocket-blacklist-rules/main/me
 3. 点已下载的配置，设为使用中
 4. 首页添加自己的节点/订阅，选一个可用节点连接，全局路由选「配置」
 
-已导入过的，在远程文件上更新一次即可升级到 v6.6。
+已导入过的，在远程文件上更新一次即可升级到 v6.7。
 
 注：本配置不含任何节点、账号或密钥。
