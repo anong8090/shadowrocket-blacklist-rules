@@ -1,12 +1,16 @@
 # Shadowrocket 黑名单规则（个人自用）
 
-纯域名黑名单版 v6.7：只有需要走代理的域名/规则集走 PROXY，其余全部直连。
+纯域名黑名单版 v6.8：只有需要走代理的域名/规则集走 PROXY，其余全部直连。
 
-- 规则段：36 条 PROXY 规则 + Global DOMAIN-SET（35,132 条域名）+ 46 条 DIRECT 豁免（富途/Moomoo 41 条 + 苹果 5 条） + `FINAL,DIRECT`
+- 规则段：50 条 PROXY 规则 + Global DOMAIN-SET（35,132 条域名）+ 46 条 DIRECT 豁免（富途/Moomoo 41 条 + 苹果 5 条） + `FINAL,DIRECT`
 - 无策略组：走哪个节点只由 Shadowrocket 首页选中的节点决定
 - 无单独 DIRECT 规则：中国域名、微信、B站等靠 FINAL 兜底直连
 - 核心名单：blackmatrix7 Global（35,312 条）+ Google / YouTube / Telegram / GitHub / Facebook / Gemini 等规则集，另含 Muse / Meta 域名（muse.ai、meta.ai 等）
 - 规则集为远程 RULE-SET，Shadowrocket 内可自动更新
+
+## v6.8 变更（2026-11-10）
+
+新增「苹果 AI 专用」代理段（14 条，源自 AiLac 的清单），置于苹果 DIRECT 豁免之前：itunes、smp-device-content、xp、mesu、smoot 等 apple.com 子域、guzzoni.apple.com（Siri）、gs-loc-cn、gspe1-ssl、icloud 的 gateway/setup/p150-acsegateway、bag.itunes、DOMAIN-KEYWORD siri、icloud-content.com 全部走 PROXY，保证 GestaltX 开出的 Apple Intelligence 在规则模式下也能连上苹果的资格与模型服务器；其余苹果域名仍按 v6.6 直连。清单里的 chatgpt.com、openai.com 配置中已有，未重复添加。同步把 `*.icloud-content.com` 从 skip-proxy 移除，否则它会压住 icloud-content 的 PROXY 规则。注意取舍：icloud-content.com 同时承载 iCloud 内容下载，走代理后 iCloud 同步会经节点、速度与流量成本上升；若只想保 AI 而不想让 iCloud 下载走代理，可单独删该行。
 
 ## v6.7 变更（2026-11-05，全表审计清理）
 
@@ -69,6 +73,6 @@ https://raw.githubusercontent.com/anong8090/shadowrocket-blacklist-rules/main/me
 3. 点已下载的配置，设为使用中
 4. 首页添加自己的节点/订阅，选一个可用节点连接，全局路由选「配置」
 
-已导入过的，在远程文件上更新一次即可升级到 v6.7。
+已导入过的，在远程文件上更新一次即可升级到 v6.8。
 
 注：本配置不含任何节点、账号或密钥。
