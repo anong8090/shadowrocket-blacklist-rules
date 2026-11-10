@@ -1,12 +1,16 @@
 # Shadowrocket 黑名单规则（个人自用）
 
-纯域名黑名单版 v6.8：只有需要走代理的域名/规则集走 PROXY，其余全部直连。
+纯域名黑名单版 v6.9：只有需要走代理的域名/规则集走 PROXY，其余全部直连。
 
-- 规则段：50 条 PROXY 规则 + Global DOMAIN-SET（35,132 条域名）+ 46 条 DIRECT 豁免（富途/Moomoo 41 条 + 苹果 5 条） + `FINAL,DIRECT`
+- 规则段：57 条 PROXY 规则 + Global DOMAIN-SET（35,132 条域名）+ 46 条 DIRECT 豁免（富途/Moomoo 41 条 + 苹果 5 条） + `FINAL,DIRECT`
 - 无策略组：走哪个节点只由 Shadowrocket 首页选中的节点决定
 - 无单独 DIRECT 规则：中国域名、微信、B站等靠 FINAL 兜底直连
 - 核心名单：blackmatrix7 Global（35,312 条）+ Google / YouTube / Telegram / GitHub / Facebook / Gemini 等规则集，另含 Muse / Meta 域名（muse.ai、meta.ai 等）
 - 规则集为远程 RULE-SET，Shadowrocket 内可自动更新
+
+## v6.9 变更（2026-11-11）
+
+苹果 AI 段补 ChatGPT 扩展登录链 7 条（规则模式下扩展登录报「无法登入」；按用户要求先补候选、不等日志实锤）：`challenges.cloudflare.com`（OpenAI 登录的 Cloudflare Turnstile 人机验证，最可疑）、`appleid.apple.com`、`gsa.apple.com`、`idmsa.apple.com`（Apple 账号登录三件套，须留在 AI 段内、苹果 DIRECT 豁免之前）、`accounts.google.com`（Google 登录入口，写死防漏）、`oaistatic.com`、`oaiusercontent.com`（OpenAI 的独立根域，不在 openai.com 后缀覆盖内）。
 
 ## v6.8 变更（2026-11-10）
 
@@ -73,6 +77,6 @@ https://raw.githubusercontent.com/anong8090/shadowrocket-blacklist-rules/main/me
 3. 点已下载的配置，设为使用中
 4. 首页添加自己的节点/订阅，选一个可用节点连接，全局路由选「配置」
 
-已导入过的，在远程文件上更新一次即可升级到 v6.8。
+已导入过的，在远程文件上更新一次即可升级到 v6.9。
 
 注：本配置不含任何节点、账号或密钥。
