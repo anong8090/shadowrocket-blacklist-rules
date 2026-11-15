@@ -1,12 +1,16 @@
 # Shadowrocket 黑名单规则（个人自用）
 
-纯域名黑名单版 v6.10：只有需要走代理的域名/规则集走 PROXY，其余全部直连。
+纯域名黑名单版 v6.11：只有需要走代理的域名/规则集走 PROXY，其余全部直连。
 
-- 规则段：59 条 PROXY 规则 + Global DOMAIN-SET（35,132 条域名）+ 46 条 DIRECT 豁免（富途/Moomoo 41 条 + 苹果 5 条） + `FINAL,DIRECT`
+- 规则段：64 条 PROXY 规则 + Global DOMAIN-SET（35,132 条域名）+ 46 条 DIRECT 豁免（富途/Moomoo 41 条 + 苹果 5 条） + `FINAL,DIRECT`
 - 无策略组：走哪个节点只由 Shadowrocket 首页选中的节点决定
 - 无单独 DIRECT 规则：中国域名、微信、B站等靠 FINAL 兜底直连
 - 核心名单：blackmatrix7 Global（35,312 条）+ Google / YouTube / Telegram / GitHub / Facebook / Gemini 等规则集，另含 Muse / Meta 域名（muse.ai、meta.ai 等）
 - 规则集为远程 RULE-SET，Shadowrocket 内可自动更新
+
+## v6.11 变更（2026-11-15）
+
+写死 CapCut（国际版剪映）5 条 PROXY：`capcut.com`、`capcutapi.com`、`capcutcdn.com`（后缀）+ `lv-api.ulikecam.com`、`lv-pc-api.ulikecam.com`（精确域名）。起因：CapCut 域名不在 Global 大名单内，规则模式下走直连、被 CapCut 按地区挡住连不上（已实测全局模式可连）。域名集取自 yxcn 维护版配置中的 CapCut 代理例外。注：ulikecam 是字节的相机域、与国内剪映共用基础设施，此处只精确匹配两个 API 域名、不用后缀；若国内剪映出现异常，删这两行即可。
 
 ## v6.10 变更（2026-11-11）
 
@@ -81,6 +85,6 @@ https://raw.githubusercontent.com/anong8090/shadowrocket-blacklist-rules/main/me
 3. 点已下载的配置，设为使用中
 4. 首页添加自己的节点/订阅，选一个可用节点连接，全局路由选「配置」
 
-已导入过的，在远程文件上更新一次即可升级到 v6.10。
+已导入过的，在远程文件上更新一次即可升级到 v6.11。
 
 注：本配置不含任何节点、账号或密钥。
