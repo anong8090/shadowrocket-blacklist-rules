@@ -1,12 +1,16 @@
 # Shadowrocket 黑名单规则（个人自用）
 
-纯域名黑名单版 v6.11：只有需要走代理的域名/规则集走 PROXY，其余全部直连。
+纯域名黑名单版 v6.12：只有需要走代理的域名/规则集走 PROXY，其余全部直连。
 
-- 规则段：64 条 PROXY 规则 + Global DOMAIN-SET（35,132 条域名）+ 46 条 DIRECT 豁免（富途/Moomoo 41 条 + 苹果 5 条） + `FINAL,DIRECT`
+- 规则段：45 条 PROXY 规则 + Global DOMAIN-SET（35,132 条域名）+ 46 条 DIRECT 豁免（富途/Moomoo 41 条 + 苹果 5 条） + `FINAL,DIRECT`
 - 无策略组：走哪个节点只由 Shadowrocket 首页选中的节点决定
 - 无单独 DIRECT 规则：中国域名、微信、B站等靠 FINAL 兜底直连
 - 核心名单：blackmatrix7 Global（35,312 条）+ Google / YouTube / Telegram / GitHub / Facebook / Gemini 等规则集，另含 Muse / Meta 域名（muse.ai、meta.ai 等）
 - 规则集为远程 RULE-SET，Shadowrocket 内可自动更新
+
+## v6.12 变更（2026-11-21）
+
+按用户要求，苹果走代理的规则全部删除：v6.8～v6.10 为 Apple Intelligence 加的 19 条（apple.com / icloud.com 各子域、api-siri-prod、issuer、DOMAIN-KEYWORD siri、icloud-content.com）全数移除，苹果恢复 v6.6 的全直连口径，DIRECT 豁免段重新全面生效（apple.news 不在豁免内、仍随 Global 走代理）。原 AI 段中 4 条非苹果规则予以保留——challenges.cloudflare.com、accounts.google.com、oaistatic.com、oaiusercontent.com 属 ChatGPT 登录链、不是苹果流量，改段名为「ChatGPT 登录链」。
 
 ## v6.11 变更（2026-11-15）
 
@@ -85,6 +89,6 @@ https://raw.githubusercontent.com/anong8090/shadowrocket-blacklist-rules/main/me
 3. 点已下载的配置，设为使用中
 4. 首页添加自己的节点/订阅，选一个可用节点连接，全局路由选「配置」
 
-已导入过的，在远程文件上更新一次即可升级到 v6.11。
+已导入过的，在远程文件上更新一次即可升级到 v6.12。
 
 注：本配置不含任何节点、账号或密钥。
